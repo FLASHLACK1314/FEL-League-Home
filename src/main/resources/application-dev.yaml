@@ -1,0 +1,22 @@
+# application-dev.yaml的模板配置文件
+# 配置springboot的模板环境
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/felLeagueHome
+    username: felLeagueHome
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  mail:
+    username:
+    password:
+    host:
+    port: 25
+  data:
+    redis:
+      port: 6379
+      host: localhost
+      database: 0
+  config:
+    name: FelLeagueHome
+server:
+    port: 8080
