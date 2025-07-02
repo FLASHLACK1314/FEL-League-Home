@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * * SpringBoot应用程序FelLeagueHome的入口点。
+ * SpringBoot应用程序FelLeagueHome的入口点。
  * @author FLASHLACK
  */
 @SpringBootApplication
