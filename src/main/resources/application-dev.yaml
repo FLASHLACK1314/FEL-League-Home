@@ -20,3 +20,8 @@ spring:
     name: FelLeagueHome
 server:
     port: 8080
+    
+# 日志配置
+logging:
+  level:
+    com.flashlack.felleaguehome: DEBUG

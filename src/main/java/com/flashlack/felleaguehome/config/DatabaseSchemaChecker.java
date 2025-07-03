@@ -3,9 +3,12 @@ package com.flashlack.felleaguehome.config;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,7 +26,7 @@ public class DatabaseSchemaChecker implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws IOException {
         log.debug("检查数据库表结构是否完整");
         List<String> requiredTables = List.of(
                 "role"
@@ -37,21 +40,51 @@ public class DatabaseSchemaChecker implements CommandLineRunner {
             log.error("数据库表结构不完整，缺少以下表: {}", missingTables);
             //执行补救方法
             this.deleteAllTables(existingTables);
+            this.createRequiredTables();
         } else {
             log.debug("数据库表结构检查通过，所有必需的表都已存在。");
         }
     }
 
     /**
+     * 创建所有必需的数据库表。
+     */
+    private void createRequiredTables() throws IOException {
+        log.debug("正在创建必需的数据库表...");
+        // 按照自定义顺序读取sql文件进行表创建
+        this.createTableFromSql("role");
+        this.createTableFromSql("user");
+        log.debug("所有必需的数据库表已创建或已存在。");
+    }
+
+    /**
+     * 根据指定的表名从SQL文件中创建表。
+     *
+     * @param tableName 要创建的表名
+     */
+    private void createTableFromSql(String tableName) throws IOException {
+        ClassPathResource resource = new ClassPathResource("sql/" + tableName + ".sql");
+        String sql = new String(FileCopyUtils.copyToByteArray(resource.getInputStream()));
+        try {
+            // 执行SQL语句创建表
+            jdbcTemplate.execute(sql);
+            log.debug("已成功创建表: {}", tableName);
+        } catch (Exception e) {
+            log.error("创建表 {} 时发生错误: {}", tableName, e.getMessage());
+        }
+    }
+
+    /**
      * 删除所有已存在的用户表。
      * * 注意：此操作非常危险，将删除所有指定的用户表及其数据。
+     *
      * @param existingTables 已存在的表名列表
      */
     private void deleteAllTables(@NotNull List<String> existingTables) {
-        log.warn("正在执行删除所有数据库表的危险操作...");
+        log.debug("正在执行删除所有数据库表的危险操作...");
 
         if (existingTables.isEmpty()) {
-            log.info("数据库中没有用户表需要删除。");
+            log.debug("数据库中没有表需要删除。");
             return;
         }
         // 遍历并删除每个表
@@ -66,7 +99,7 @@ public class DatabaseSchemaChecker implements CommandLineRunner {
                 log.error("删除表 {} 时发生错误: {}", tableName, e.getMessage());
             }
         }
-        log.warn("所有指定的用户表已尝试删除。");
+        log.debug("所有指定的用户表已尝试删除。");
     }
 
     /**
