@@ -5,6 +5,7 @@ import com.flashlack.felleaguehome.mapper.UserMapper;
 import com.flashlack.felleaguehome.model.entity.UserDO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author FLASHLACK
  */
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class UserDAO {
@@ -25,6 +27,7 @@ public class UserDAO {
      * @return 用户信息
      */
     public UserDO getUserByUsername(@NotBlank String username) {
+        log.debug("获取用户信息，用户名: {}", username);
         return userMapper.getUserByUsername(username);
     }
 
@@ -35,6 +38,7 @@ public class UserDAO {
      * @return 用户信息
      */
     public UserDO getUserByEmail(@NotBlank String email) {
+        log.debug("获取用户信息，电子邮件: {}", email);
         return userMapper.getUserByEmail(email);
     }
 

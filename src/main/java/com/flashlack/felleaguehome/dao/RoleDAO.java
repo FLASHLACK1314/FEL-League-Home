@@ -6,6 +6,7 @@ import com.flashlack.felleaguehome.mapper.RoleMapper;
 import com.flashlack.felleaguehome.model.entity.RoleDO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
  * * 该类实现了RoleMapper接口，提供对角色数据的访问方法。
  * * @author FLASHLACK
  */
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class RoleDAO {
@@ -26,6 +28,7 @@ public class RoleDAO {
      * @throws IllegalArgumentException 如果roleUuid为null或空字符串
      */
     public @NotNull RoleDO getRoleByUuid(@NotBlank String roleUuid) {
+        log.debug("根据角色UUID获取角色信息: {}", roleUuid);
         if (roleUuid.isEmpty()) {
             throw new BusinessException(ErrorCodeEnum.UUID_BLANK, "角色UUID不能为空");
         }
@@ -37,6 +40,7 @@ public class RoleDAO {
      * @param roleDO 角色数据对象
      */
     public void save(RoleDO roleDO) {
+        log.debug("保存角色信息: {}", roleDO);
         roleMapper.save(roleDO);
     }
 }
