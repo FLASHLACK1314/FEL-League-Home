@@ -27,9 +27,9 @@ public class Result<T> {
         Result<T> result = new Result<>();
         result.setCode(200);
         result.setMessage("操作成功");
-        result.setData(null);
         return result;
     }
+
 
     /**
      * 成功响应（有数据）
@@ -52,7 +52,6 @@ public class Result<T> {
         Result<T> result = new Result<>();
         result.setCode(1000);
         result.setMessage(message);
-        result.setData(null);
         return result;
     }
 
@@ -63,7 +62,6 @@ public class Result<T> {
         Result<T> result = new Result<>();
         result.setCode(code);
         result.setMessage(message);
-        result.setData(null);
         return result;
     }
 }
