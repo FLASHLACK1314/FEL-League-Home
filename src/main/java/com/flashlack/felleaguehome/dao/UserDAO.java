@@ -24,12 +24,13 @@ public class UserDAO {
      * @param username 用户名
      * @return 用户信息
      */
-    public  UserDO getUserByUsername(@NotBlank String username) {
+    public UserDO getUserByUsername(@NotBlank String username) {
         return userMapper.getUserByUsername(username);
     }
 
     /**
      * 根据电子邮件获取用户信息。
+     *
      * @param email 电子邮件地址
      * @return 用户信息
      */
@@ -39,10 +40,20 @@ public class UserDAO {
 
     /**
      * 根据QQ号获取用户信息。
+     *
      * @param qq QQ号
      * @return 用户信息
      */
     public UserDO getUserByQq(String qq) {
-        return userMapper.getUserByQq(qq);
+        return userMapper.getUserByQqAccount(qq);
+    }
+
+    /**
+     * 保存超级管理员用户信息。
+     *
+     * @param userDO 用户数据对象
+     */
+    public void save(UserDO userDO) {
+        userMapper.save(userDO);
     }
 }

@@ -4,10 +4,12 @@ import cn.hutool.core.util.IdUtil;
 import com.flashlack.felleaguehome.dao.RoleDAO;
 import com.flashlack.felleaguehome.dao.UserDAO;
 import com.flashlack.felleaguehome.model.entity.RoleDO;
+import com.flashlack.felleaguehome.model.entity.UserDO;
 import com.flashlack.felleaguehome.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
 /**
  * 默认数据加载器类（DefaultDataLoader）用于初始化应用程序的默认数据。
  *
@@ -41,6 +43,15 @@ public class DefaultDataLoader {
         superAdmin.setRoleName("superAdmin");
         superAdmin.setDescription("系统管理员，拥有所有权限");
         roleDAO.save(superAdmin);
+        // 创建超级管理员角色账号
+        UserDO superAdminUser = new UserDO();
+        superAdminUser.setUserUuid(IdUtil.fastUUID())
+                .setUserName("superAdmin")
+                .setEmail("flashlack1314@163.com")
+                .setPassword(passwordUtil.encryptPassword("qwer1234QWER"))
+                .setQqAccount("123456789")
+                .setRoleUuid(superAdmin.getRoleUuid());
+        userDAO.save(superAdminUser);
         RoleDO admin = new RoleDO();
         admin.setRoleUuid(IdUtil.fastUUID());
         admin.setRoleName("admin");
