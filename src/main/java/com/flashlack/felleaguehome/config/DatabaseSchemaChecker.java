@@ -1,5 +1,6 @@
 package com.flashlack.felleaguehome.config;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.CommandLineRunner;
@@ -18,12 +19,9 @@ import java.util.List;
  */
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class DatabaseSchemaChecker implements CommandLineRunner {
     private final JdbcTemplate jdbcTemplate;
-
-    public DatabaseSchemaChecker(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public void run(String... args) throws IOException {
