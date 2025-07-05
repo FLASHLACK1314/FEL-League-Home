@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Select;
 public interface RoleMapper {
 
     // 查询角色信息根据角色UUID
-    @Select("SELECT * FROM role WHERE role_uuid = #{roleUuid}")
+    @Select("SELECT * FROM home_role WHERE role_uuid = #{roleUuid}")
     RoleDO getRoleByUuid(String roleUuid);
 
 }

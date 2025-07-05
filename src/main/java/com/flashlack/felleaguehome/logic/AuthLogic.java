@@ -4,6 +4,7 @@ import com.flashlack.felleaguehome.dao.RoleDAO;
 import com.flashlack.felleaguehome.dao.UserDAO;
 import com.flashlack.felleaguehome.model.vo.RegisterVO;
 import com.flashlack.felleaguehome.service.AuthService;
+import com.flashlack.felleaguehome.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthLogic implements AuthService {
     private final RoleDAO roleDAO;
+    private final UserService userService;
     private final UserDAO userDAO;
 
     @Override
@@ -28,5 +30,7 @@ public class AuthLogic implements AuthService {
 
     @Override
     public void checkRegister(RegisterVO registerVO) {
+        log.debug("检查注册信息是否有效");
+        userService.checkUserName(registerVO.getUserName());
     }
 }
