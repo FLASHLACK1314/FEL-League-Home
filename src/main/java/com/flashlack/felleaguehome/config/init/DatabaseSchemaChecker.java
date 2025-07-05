@@ -1,4 +1,4 @@
-package com.flashlack.felleaguehome.config;
+package com.flashlack.felleaguehome.config.init;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +22,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DatabaseSchemaChecker implements CommandLineRunner {
     private final JdbcTemplate jdbcTemplate;
+    private final  DefaultDataLoader defaultDataLoader;
 
     @Override
     public void run(String... args) throws IOException {
         log.debug("检查数据库表结构是否完整");
         List<String> requiredTables = List.of(
-                "role"
+                "home_role",
+                "home_user"
         );
         //获取所有数据库表名
         List<String> existingTables = this.getExistingTables();
@@ -39,6 +41,7 @@ public class DatabaseSchemaChecker implements CommandLineRunner {
             //执行补救方法
             this.deleteAllTables(existingTables);
             this.createRequiredTables();
+            defaultDataLoader.initializeData();
         } else {
             log.debug("数据库表结构检查通过，所有必需的表都已存在。");
         }
@@ -50,8 +53,8 @@ public class DatabaseSchemaChecker implements CommandLineRunner {
     private void createRequiredTables() throws IOException {
         log.debug("正在创建必需的数据库表...");
         // 按照自定义顺序读取sql文件进行表创建
-        this.createTableFromSql("role");
-        this.createTableFromSql("user");
+        this.createTableFromSql("home_role");
+        this.createTableFromSql("home_user");
         log.debug("所有必需的数据库表已创建或已存在。");
     }
 

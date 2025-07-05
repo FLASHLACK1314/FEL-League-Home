@@ -33,8 +33,8 @@ public class AuthController {
             @RequestBody @Valid RegisterVO registerVO
     ) {
         log.debug("注册请求已接收");
-        authService.checkRegister(registerVO);
-        authService.register(registerVO);
+        //authService.checkRegister(registerVO);
+        //authService.register(registerVO);
         return Result.success("注册成功");
     }
 }

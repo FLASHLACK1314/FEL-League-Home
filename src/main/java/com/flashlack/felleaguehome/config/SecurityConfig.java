@@ -1,26 +1,45 @@
 package com.flashlack.felleaguehome.config;
 
 
+import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * 安全配置类（SecurityConfig）用于配置应用程序的安全设置。
  * @author FLSHLACK
  */
+@Slf4j
 @Configuration
 public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain filterChain(@NotNull HttpSecurity security) throws Exception {
+        log.info("[INIT] SpringSecurity 配置初始化");
+        return security
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                // 禁用 Spring Security 的自带授权验证
+                .formLogin(AbstractHttpConfigurer::disable)
+                //.addFilterBefore(new RequestHeaderFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/**")
+                                .permitAll()
+                                .anyRequest()
+                                .permitAll()
+                )
+                .build();
+    }
 
-    /**
-     * 定义一个 PasswordEncoder Bean。
-     * Spring Security 推荐使用 BCryptPasswordEncoder 进行密码哈希，因为它包含了加盐和自适应哈希功能。
-     * @return BCryptPasswordEncoder 实例
-     */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // 默认工作因子是 10，你可以根据需要调整，数字越大计算越慢，安全性越高，但也会消耗更多CPU资源
+        log.info("[INIT] PasswordEncoder Bean 初始化");
         return new BCryptPasswordEncoder();
     }
 }

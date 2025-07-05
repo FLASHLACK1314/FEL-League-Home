@@ -24,7 +24,7 @@ public class StringConstant {
         public static final String EMAIL_REGULAR_EXPRESSION = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         public static final String EMAIL_CODE_REGULAR_EXPRESSION = "^[0-9]{6}$";
         public static final String USER_NAME_REGULAR_EXPRESSION = "^[0-9A-Za-z_-]{4,32}$";
-        public static final String PASSWORD_REGULAR_EXPRESSION = "^(?=.*\\\\d)(?=.*[a-zA-Z]).{7,}$";
+        public static final String PASSWORD_REGULAR_EXPRESSION = "^(?=.*(\\d|_|=|@))(?=.*[a-z])(?=.*[A-Z]).{8,}$";
         public static final String QQ_REGULAR_EXPRESSION = "^[1-9][0-9]{4,14}$";
         //用户注册角色为user(用户), admin(联赛管理员)
         public static final String REGISTER_ROLE_REGULAR_EXPRESSION = "^(user|admin)$";

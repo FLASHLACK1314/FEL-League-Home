@@ -1,0 +1,8 @@
+# 默认引导配置文件
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev # 设置当前激活的配置文件为dev
+  jackson:
+    property-naming-strategy: SNAKE_CASE # 使用蛇形命名策略

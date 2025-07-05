@@ -4,6 +4,7 @@ import com.flashlack.felleaguehome.common.ErrorCodeEnum;
 import com.flashlack.felleaguehome.expection.BusinessException;
 import com.flashlack.felleaguehome.mapper.RoleMapper;
 import com.flashlack.felleaguehome.model.entity.RoleDO;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
@@ -24,15 +25,18 @@ public class RoleDAO {
      * @return RoleDO 角色数据对象
      * @throws IllegalArgumentException 如果roleUuid为null或空字符串
      */
-    public @NotNull RoleDO getRoleByUuid(@NotNull String roleUuid) {
+    public @NotNull RoleDO getRoleByUuid(@NotBlank String roleUuid) {
         if (roleUuid.isEmpty()) {
-            throw new IllegalArgumentException("RoleUuid不能为null或空字符串");
+            throw new BusinessException(ErrorCodeEnum.UUID_BLANK, "角色UUID不能为空");
         }
-        RoleDO roleDO = roleMapper.getRoleByUuid(roleUuid);
-        if (roleDO == null) {
-            throw new BusinessException(ErrorCodeEnum.ROLE_NOT_FOUND, "角色不存在或已被删除");
-        }
-        return roleDO;
+        return roleMapper.getRoleByUuid(roleUuid);
     }
 
+    /**
+     * 保存角色信息。
+     * @param roleDO 角色数据对象
+     */
+    public void save(RoleDO roleDO) {
+        roleMapper.save(roleDO);
+    }
 }

@@ -1,15 +1,16 @@
 # application-dev.yaml的模板配置文件
 # 配置springboot的模板环境
+# 配置模板
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/felLeagueHome
-    username: felLeagueHome
-    password: 123456
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   mail:
-    username:
-    password:
-    host:
+    username: youname@name.com
+    password: yourpassword
+    host: smtp.name.com
     port: 25
   data:
     redis:
@@ -17,10 +18,7 @@ spring:
       host: localhost
       database: 0
   config:
-    name: FelLeagueHome
-server:
-    port: 8080
-# 日志配置
+    name: YourApplicationName
 logging:
   level:
     com.flashlack.felleaguehome: DEBUG
