@@ -8,7 +8,7 @@ package com.flashlack.felleaguehome.service.mail;
 public interface MailService {
 
     /**
-     * 发送邮件方法。
+     * 发送邮件方法(异步)
      *
      * @param to 收件人地址
      */
