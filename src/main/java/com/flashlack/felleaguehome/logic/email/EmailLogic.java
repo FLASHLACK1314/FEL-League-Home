@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,8 +26,15 @@ public class EmailLogic implements MailService {
     private final RedisDAO redis;
     private final Environment env;
 
+    /**
+     * 发送简单的电子邮件。
+     *
+     * @param to      收件人地址
+     * @param subject 主题
+     * @param text    邮件内容
+     */
 
-    private void sendSimpleEmail(String to, String subject, String text){
+    private void sendSimpleEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(env.getProperty("spring.mail.username"));
         message.setTo(to);
@@ -34,18 +42,22 @@ public class EmailLogic implements MailService {
         message.setText(text);
         try {
             javaMailSender.send(message);
-        }catch (MailException e){
+        } catch (MailException e) {
             log.error("发送邮件失败: {}", e.getMessage());
             throw new RuntimeException("发送邮件失败", e);
         }
     }
 
-
+    /**
+     * 异步发送电子邮件验证码。
+     *
+     * @param to 收件人地址
+     */
     @Override
+    @Async
     public void sendEmailCode(String to) {
-        // 生成4位随机验证码
+        log.debug("异步发送邮箱中");
         String code = RandomUtil.randomNumbers(6);
-        log.debug("生成的验证码: {}", code);
         // 发送邮件
         String subject = "FEL电子邮件验证码";
         String text = "您的验证码是: " + code + "，有效期为5分钟。请勿将此验证码泄露给他人。";
