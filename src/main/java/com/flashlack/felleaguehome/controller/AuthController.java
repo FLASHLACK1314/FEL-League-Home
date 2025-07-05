@@ -37,4 +37,6 @@ public class AuthController {
         authService.register(registerVO);
         return Result.success("注册成功");
     }
+
+
 }

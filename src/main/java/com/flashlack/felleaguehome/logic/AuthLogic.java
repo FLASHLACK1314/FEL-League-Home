@@ -36,7 +36,7 @@ public class AuthLogic implements AuthService {
 
     @Override
     public void register(@NotNull RegisterVO registerVO) {
-        log.debug("注册请求已接收");
+        log.debug("注册用户核心业务启动");
         UserDO userDO = new UserDO();
         RoleDO roleDO = roleService.getRoleByName(registerVO.getRegisterRole());
         log.debug("获取角色信息: {}", roleDO);
