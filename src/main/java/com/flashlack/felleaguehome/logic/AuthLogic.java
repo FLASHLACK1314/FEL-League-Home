@@ -5,6 +5,7 @@ import com.flashlack.felleaguehome.dao.UserDAO;
 import com.flashlack.felleaguehome.model.vo.RegisterVO;
 import com.flashlack.felleaguehome.service.AuthService;
 import com.flashlack.felleaguehome.service.UserService;
+import com.flashlack.felleaguehome.service.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class AuthLogic implements AuthService {
     private final RoleDAO roleDAO;
     private final UserService userService;
+    private final MailService mailService;
     private final UserDAO userDAO;
 
     @Override
