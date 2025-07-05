@@ -32,5 +32,8 @@ public class AuthLogic implements AuthService {
     public void checkRegister(RegisterVO registerVO) {
         log.debug("检查注册信息是否有效");
         userService.checkUserName(registerVO.getUserName());
+        userService.checkEmail(registerVO.getEmail());
+        userService.checkQa(registerVO.getQq());
+        log.debug("注册信息检查通过");
     }
 }

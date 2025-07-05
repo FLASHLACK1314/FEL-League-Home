@@ -21,6 +21,7 @@ public enum ErrorCodeEnum {
     USER_ALREADY_EXISTS(1003, "用户名已存在"),
     EMAIL_ALREADY_REGISTERED(1004, "邮箱已被注册"),
     ROLE_NOT_FOUND(1005, "角色不存在"),
+    QQ_ALREADY_REGISTERED(1006, "QQ号已被注册"),
     DATA_BASE_NOT_FOUND(1999, "数据库数据未找到"),
 
     // 参数校验错误 (2000 - 2999)

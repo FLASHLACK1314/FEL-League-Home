@@ -1,12 +1,9 @@
 package com.flashlack.felleaguehome.dao;
 
 
-import com.flashlack.felleaguehome.common.ErrorCodeEnum;
-import com.flashlack.felleaguehome.expection.BusinessException;
 import com.flashlack.felleaguehome.mapper.UserMapper;
 import com.flashlack.felleaguehome.model.entity.UserDO;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -27,13 +24,25 @@ public class UserDAO {
      * @param username 用户名
      * @return 用户信息
      */
-    public @NotNull UserDO getUserByUsername(@NotBlank String username) {
-        UserDO userDO = userMapper.getUserByUsername(username);
-        if (userDO == null) {
-            throw new BusinessException(ErrorCodeEnum.USER_NOT_FOUND, "用户不存在");
-        }
-        return userDO;
+    public  UserDO getUserByUsername(@NotBlank String username) {
+        return userMapper.getUserByUsername(username);
     }
 
+    /**
+     * 根据电子邮件获取用户信息。
+     * @param email 电子邮件地址
+     * @return 用户信息
+     */
+    public UserDO getUserByEmail(@NotBlank String email) {
+        return userMapper.getUserByEmail(email);
+    }
 
+    /**
+     * 根据QQ号获取用户信息。
+     * @param qq QQ号
+     * @return 用户信息
+     */
+    public UserDO getUserByQq(String qq) {
+        return userMapper.getUserByQq(qq);
+    }
 }
