@@ -1,4 +1,4 @@
-create table role
+create table "role"
 (
     role_uuid   varchar(36) not null
         primary key,
