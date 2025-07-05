@@ -1,6 +1,7 @@
 package com.flashlack.felleaguehome.mapper;
 
 import com.flashlack.felleaguehome.model.entity.RoleDO;
+import jakarta.validation.constraints.NotBlank;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -26,4 +27,12 @@ public interface RoleMapper {
             "#{roleUuid}, #{roleName}, #{description}" +
             ")")
     void save(RoleDO roleDO);
+
+    /**
+     * 根据角色名称获取角色信息。
+     * @param roleName 角色名称
+     * @return RoleDO 角色数据对象
+     */
+    @Select("SELECT * FROM home_role WHERE role_name = #{roleName}")
+    RoleDO getRoleByName(@NotBlank String roleName);
 }

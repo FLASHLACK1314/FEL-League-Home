@@ -76,4 +76,14 @@ public class EmailLogic implements MailService {
         }
         log.debug("允许发送验证码，剩余过期时间: {} 秒，负数为不存在", time);
     }
+
+    @Override
+    public void checkEmailCode(String email, String emailCode) {
+        log.debug("检查电子邮件验证码: {}, {}", email, emailCode);
+        String code = redis.getEmailCode(email);
+        if ( code == null||!code.equals(emailCode)) {
+            throw new BusinessException(ErrorCodeEnum.EMAIL_CODE_NOT_MATCH);
+        }
+        log.debug("电子邮件验证码验证通过");
+    }
 }

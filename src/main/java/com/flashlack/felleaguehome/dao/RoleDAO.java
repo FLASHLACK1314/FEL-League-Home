@@ -7,7 +7,6 @@ import com.flashlack.felleaguehome.model.entity.RoleDO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -23,16 +22,30 @@ public class RoleDAO {
 
     /**
      * 根据角色UUID获取角色信息。
+     *
      * @param roleUuid 角色的唯一标识符
      * @return RoleDO 角色数据对象
      * @throws IllegalArgumentException 如果roleUuid为null或空字符串
      */
-    public @NotNull RoleDO getRoleByUuid(@NotBlank String roleUuid) {
+    public RoleDO getRoleByUuid(@NotBlank String roleUuid) {
         log.debug("根据角色UUID获取角色信息: {}", roleUuid);
         if (roleUuid.isEmpty()) {
             throw new BusinessException(ErrorCodeEnum.UUID_BLANK, "角色UUID不能为空");
         }
         return roleMapper.getRoleByUuid(roleUuid);
+    }
+
+    /**
+     * 根据角色名称获取角色信息。
+     * @param roleName 角色名称
+     * @return RoleDO 角色数据对象
+     */
+    public RoleDO getRoleByName(@NotBlank String roleName) {
+        log.debug("根据角色名称获取角色信息: {}", roleName);
+        if (roleName.isEmpty()) {
+            throw new BusinessException(ErrorCodeEnum.UUID_BLANK, "角色名称不能为空");
+        }
+        return roleMapper.getRoleByName(roleName);
     }
 
     /**
