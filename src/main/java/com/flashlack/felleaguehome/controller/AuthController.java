@@ -2,6 +2,7 @@ package com.flashlack.felleaguehome.controller;
 
 import com.flashlack.felleaguehome.common.Result;
 import com.flashlack.felleaguehome.model.vo.RegisterVO;
+import com.flashlack.felleaguehome.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/v1/auth")
 public class AuthController {
+    private final AuthService authService;
 
     /**
      * 用户注册接口。
@@ -31,7 +33,8 @@ public class AuthController {
             @RequestBody @Valid RegisterVO registerVO
     ) {
         log.debug("注册请求已接收");
-
+        authService.checkRegister(registerVO);
+        authService.register(registerVO);
         return Result.success("注册成功");
     }
 }
