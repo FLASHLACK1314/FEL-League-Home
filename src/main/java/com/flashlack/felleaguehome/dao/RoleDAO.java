@@ -1,7 +1,10 @@
 package com.flashlack.felleaguehome.dao;
 
+import com.flashlack.felleaguehome.common.ErrorCodeEnum;
+import com.flashlack.felleaguehome.expection.BusinessException;
 import com.flashlack.felleaguehome.mapper.RoleMapper;
 import com.flashlack.felleaguehome.model.entity.RoleDO;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
@@ -11,27 +14,25 @@ import org.springframework.stereotype.Repository;
  * * @author FLASHLACK
  */
 @Repository
+@RequiredArgsConstructor
 public class RoleDAO {
     private final RoleMapper roleMapper;
 
-    /**
-     * 构造函数，注入RoleMapper依赖。
-     * @param roleMapper 角色映射器
-     */
-    public RoleDAO(RoleMapper roleMapper) {
-        this.roleMapper = roleMapper;
-    }
     /**
      * 根据角色UUID获取角色信息。
      * @param roleUuid 角色的唯一标识符
      * @return RoleDO 角色数据对象
      * @throws IllegalArgumentException 如果roleUuid为null或空字符串
      */
-    public RoleDO getRoleByUuid(@NotNull String roleUuid) {
+    public @NotNull RoleDO getRoleByUuid(@NotNull String roleUuid) {
         if (roleUuid.isEmpty()) {
             throw new IllegalArgumentException("RoleUuid不能为null或空字符串");
         }
-        return roleMapper.getRoleByUuid(roleUuid);
+        RoleDO roleDO = roleMapper.getRoleByUuid(roleUuid);
+        if (roleDO == null) {
+            throw new BusinessException(ErrorCodeEnum.ROLE_NOT_FOUND, "角色不存在或已被删除");
+        }
+        return roleDO;
     }
 
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 
 /**
  * 错误码枚举类（ErrorCodeEnum）用于定义系统中的各种错误码和对应的消息。
+ *
  * @author FLASHLACK
  */
 @Getter
@@ -19,6 +20,8 @@ public enum ErrorCodeEnum {
     PASSWORD_MISMATCH(1002, "密码错误"),
     USER_ALREADY_EXISTS(1003, "用户名已存在"),
     EMAIL_ALREADY_REGISTERED(1004, "邮箱已被注册"),
+    ROLE_NOT_FOUND(1005, "角色不存在"),
+    DATA_BASE_NOT_FOUND(1999, "数据库数据未找到"),
 
     // 参数校验错误 (2000 - 2999)
     INVALID_PARAMETER(2000, "参数校验失败"),
