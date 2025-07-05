@@ -1,15 +1,12 @@
 package com.flashlack.felleaguehome.model.vo;
 
-
 import com.flashlack.felleaguehome.constant.StringConstant;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 
-
 /**
- * 注册视图对象（RegisterVO）类。
- *
+ * 用户注册信息对象（RegisterVO）类。
  * @author FLASHLACK
  */
 @Getter
