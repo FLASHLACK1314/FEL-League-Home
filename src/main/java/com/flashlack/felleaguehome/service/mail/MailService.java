@@ -13,4 +13,10 @@ public interface MailService {
      * @param to 收件人地址
      */
     void sendEmailCode(String to);
+
+    /**
+     * 检查验证码的过期时间。
+     * @param email 接收验证码的邮箱地址
+     */
+    void checkCodeExpireTime(String email);
 }

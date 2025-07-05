@@ -2,7 +2,9 @@ package com.flashlack.felleaguehome.logic.email;
 
 
 import cn.hutool.core.util.RandomUtil;
+import com.flashlack.felleaguehome.common.ErrorCodeEnum;
 import com.flashlack.felleaguehome.dao.RedisDAO;
+import com.flashlack.felleaguehome.expection.BusinessException;
 import com.flashlack.felleaguehome.service.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +50,7 @@ public class EmailLogic implements MailService {
         }
     }
 
+
     /**
      * 异步发送电子邮件验证码。
      *
@@ -61,7 +64,16 @@ public class EmailLogic implements MailService {
         // 发送邮件
         String subject = "FEL电子邮件验证码";
         String text = "您的验证码是: " + code + "，有效期为5分钟。请勿将此验证码泄露给他人。";
-        this.sendSimpleEmail(to, subject, text);
         redis.saveEmailCode(to, code);
+        this.sendSimpleEmail(to, subject, text);
+    }
+
+    @Override
+    public void checkCodeExpireTime(String email) {
+        long time = redis.getEmailCodeExpireTime(email);
+        if (time >= 180) {
+            throw new BusinessException(ErrorCodeEnum.EMAIL_REPEAT_SEND);
+        }
+        log.debug("允许发送验证码，剩余过期时间: {} 秒，负数为不存在", time);
     }
 }

@@ -36,6 +36,7 @@ public class EmailController {
             log.debug("无效的邮箱格式: {}", email);
             return Result.fail("无效的邮箱格式");
         }
+        mailService.checkCodeExpireTime(email);
         mailService.sendEmailCode(email);
         return Result.success("验证码已发送到您的邮箱，请注意查收");
     }

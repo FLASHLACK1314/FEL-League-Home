@@ -23,6 +23,7 @@ public enum ErrorCodeEnum {
     ROLE_NOT_FOUND(1005, "角色不存在"),
     QQ_ALREADY_REGISTERED(1006, "QQ号已被注册"),
     UUID_BLANK(1007,"UUID为空" ),
+    EMAIL_REPEAT_SEND(1008, "邮件发送过于频繁，请稍后再试"),
     DATA_BASE_NOT_FOUND(1999, "数据库数据未找到"),
 
     // 参数校验错误 (2000 - 2999)

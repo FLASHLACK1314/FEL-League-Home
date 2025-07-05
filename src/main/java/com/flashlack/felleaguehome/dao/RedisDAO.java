@@ -51,4 +51,17 @@ public class RedisDAO {
         log.debug("删除邮箱验证码: {}", email);
     }
 
+    /**
+     * 获取邮箱验证码的过期时间。
+     * @param key 键名
+     * @return 过期时间（秒）
+     */
+    public long getEmailCodeExpireTime(String key) {
+        // 获取键的过期时间，以秒为单位
+        long expire = redisTemplate.getExpire(key);
+        // 记录日志
+        log.debug("键 {} 的过期时间为: {} 秒", key, expire);
+        return expire;
+    }
+
 }
