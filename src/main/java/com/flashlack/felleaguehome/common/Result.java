@@ -64,4 +64,15 @@ public class Result<T> {
         result.setMessage(message);
         return result;
     }
+
+    /**
+     * 失败响应（带状态码、消息和数据）
+     */
+    public static <T> @NotNull Result<T> fail(Integer code, String message, T data) {
+        Result<T> result = new Result<>();
+        result.setCode(code);
+        result.setMessage(message);
+        result.setData(data);
+        return result;
+    }
 }

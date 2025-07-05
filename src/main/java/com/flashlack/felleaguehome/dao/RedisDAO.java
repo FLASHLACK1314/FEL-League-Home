@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Redis 数据访问对象（RedisDAO）类。
  *
@@ -25,7 +27,7 @@ public class RedisDAO {
      */
     public void saveEmailCode(String email, String code) {
         // 设置过期时间为5分钟
-        redisTemplate.opsForValue().set(email, code, 5 * 60);
+        redisTemplate.opsForValue().set(email, code, 5, TimeUnit.MINUTES);
         log.debug("保存邮箱验证码: {} -> {},\" 过期时间: 5分钟\"", email, code);
     }
 
@@ -53,6 +55,7 @@ public class RedisDAO {
 
     /**
      * 获取邮箱验证码的过期时间。
+     *
      * @param key 键名
      * @return 过期时间（秒）
      */
