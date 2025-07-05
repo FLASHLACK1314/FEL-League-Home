@@ -1,6 +1,6 @@
 package com.flashlack.felleaguehome.mapper;
 
-import com.flashlack.felleaguehome.model.RoleDO;
+import com.flashlack.felleaguehome.model.entity.RoleDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

@@ -1,7 +1,7 @@
 package com.flashlack.felleaguehome.dao;
 
 import com.flashlack.felleaguehome.mapper.RoleMapper;
-import com.flashlack.felleaguehome.model.RoleDO;
+import com.flashlack.felleaguehome.model.entity.RoleDO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 

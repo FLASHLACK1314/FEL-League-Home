@@ -7,7 +7,8 @@ create table "user"
     password   varchar(100) not null,
     email      varchar(100) not null
         unique,
-    qq_account varchar(20),
+    qq_account varchar(20) not null
+        unique,
     role_uuid  varchar(36)  not null
 );
 

@@ -1,4 +1,4 @@
-package com.flashlack.felleaguehome.model;
+package com.flashlack.felleaguehome.model.entity;
 
 import lombok.Data;
 
