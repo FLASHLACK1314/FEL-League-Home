@@ -17,12 +17,12 @@ import java.util.List;
  *
  * @author FLSHLACK
  */
-@Component
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class DatabaseSchemaChecker implements CommandLineRunner {
     private final JdbcTemplate jdbcTemplate;
-    private final  DefaultDataLoader defaultDataLoader;
+    private final DefaultDataLoader defaultDataLoader;
 
     @Override
     public void run(String... args) throws IOException {
